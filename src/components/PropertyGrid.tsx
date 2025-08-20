@@ -1,9 +1,24 @@
+import { useState } from 'react';
 import PropertyCard from './PropertyCard';
 import sampleRoom1 from '@/assets/sample-room-1.jpg';
 import sampleRoom2 from '@/assets/sample-room-2.jpg';
 import sampleRoom3 from '@/assets/sample-room-3.jpg';
 
 const PropertyGrid = () => {
+  const [favorites, setFavorites] = useState<string[]>([]);
+
+  const handleToggleFavorite = (id: string) => {
+    setFavorites(prev => 
+      prev.includes(id) 
+        ? prev.filter(fav => fav !== id)
+        : [...prev, id]
+    );
+  };
+
+  const handleViewDetails = (id: string) => {
+    console.log('View details for property:', id);
+    // Navigate to property details page
+  };
   // Sample data - in real app this would come from backend
   const properties = [
     {
@@ -14,7 +29,7 @@ const PropertyGrid = () => {
       price: 250,
       rating: 4.8,
       reviewCount: 24,
-      images: [sampleRoom1],
+      images: [sampleRoom1, sampleRoom2, sampleRoom3],
       amenities: ['WiFi', 'Kitchen', 'Security', 'Parking'],
       roomType: 'Single Room',
       availableSpots: 2,
@@ -112,16 +127,20 @@ const PropertyGrid = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {properties.map((property) => (
-            <PropertyCard
-              key={property.id}
-              {...property}
-            />
+          {properties.map((property, index) => (
+            <div key={property.id} style={{ animationDelay: `${index * 0.1}s` }}>
+              <PropertyCard
+                {...property}
+                onViewDetails={handleViewDetails}
+                onToggleFavorite={handleToggleFavorite}
+                isFavorited={favorites.includes(property.id)}
+              />
+            </div>
           ))}
         </div>
 
         <div className="text-center mt-8">
-          <button className="text-primary hover:text-primary-dark font-medium">
+          <button className="text-primary hover:text-primary-dark font-medium transition-colors hover:scale-105 transform duration-200">
             View All Accommodations →
           </button>
         </div>
