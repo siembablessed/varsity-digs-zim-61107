@@ -1,10 +1,18 @@
 import { useState } from 'react';
+import { Button } from '@/components/ui/button';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Map } from 'lucide-react';
 import PropertyCard from './PropertyCard';
+import PropertyDetail from './PropertyDetail';
+import MapView from './MapView';
 import sampleRoom1 from '@/assets/sample-room-1.jpg';
 import sampleRoom2 from '@/assets/sample-room-2.jpg';
 import sampleRoom3 from '@/assets/sample-room-3.jpg';
 
 const PropertyGrid = () => {
+  const [selectedProperty, setSelectedProperty] = useState<any>(null);
+  const [showPropertyDetail, setShowPropertyDetail] = useState(false);
+  const [viewMode, setViewMode] = useState<'grid' | 'map'>('grid');
   const [favorites, setFavorites] = useState<string[]>([]);
 
   const handleToggleFavorite = (id: string) => {
@@ -16,8 +24,22 @@ const PropertyGrid = () => {
   };
 
   const handleViewDetails = (id: string) => {
-    console.log('View details for property:', id);
-    // Navigate to property details page
+    const property = properties.find(p => p.id === id);
+    if (property) {
+      setSelectedProperty({
+        ...property,
+        images: property.images,
+        tenants: property.availableSpots,
+        rating: property.rating,
+        trusted: property.isTrusted,
+        owner: 'Property Owner'
+      });
+      setShowPropertyDetail(true);
+    }
+  };
+
+  const handlePropertySelect = (property: any) => {
+    setSelectedProperty(property);
   };
   // Sample data - in real app this would come from backend
   const properties = [
@@ -126,25 +148,64 @@ const PropertyGrid = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {properties.map((property, index) => (
-            <div key={property.id} style={{ animationDelay: `${index * 0.1}s` }}>
-              <PropertyCard
-                {...property}
-                onViewDetails={handleViewDetails}
-                onToggleFavorite={handleToggleFavorite}
-                isFavorited={favorites.includes(property.id)}
+        {/* View Toggle */}
+        <div className="mb-8">
+          <Tabs value={viewMode} onValueChange={(value) => setViewMode(value as 'grid' | 'map')}>
+            <TabsList className="grid w-fit grid-cols-2">
+              <TabsTrigger value="grid">Grid View</TabsTrigger>
+              <TabsTrigger value="map" className="flex items-center gap-2">
+                <Map className="h-4 w-4" />
+                Map View
+              </TabsTrigger>
+            </TabsList>
+
+            <TabsContent value="grid">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {properties.map((property, index) => (
+                  <div key={property.id} style={{ animationDelay: `${index * 0.1}s` }}>
+                    <PropertyCard
+                      {...property}
+                      onViewDetails={handleViewDetails}
+                      onToggleFavorite={handleToggleFavorite}
+                      isFavorited={favorites.includes(property.id)}
+                    />
+                  </div>
+                ))}
+              </div>
+            </TabsContent>
+
+            <TabsContent value="map">
+              <MapView 
+                properties={properties.map(p => ({
+                  ...p,
+                  images: p.images,
+                  tenants: p.availableSpots,
+                  rating: p.rating,
+                  trusted: p.isTrusted
+                }))}
+                selectedProperty={selectedProperty}
+                onPropertySelect={handlePropertySelect}
               />
-            </div>
-          ))}
+            </TabsContent>
+          </Tabs>
         </div>
 
         <div className="text-center mt-8">
-          <button className="text-primary hover:text-primary-dark font-medium transition-colors hover:scale-105 transform duration-200">
-            View All Accommodations →
-          </button>
+          <Button 
+            size="lg"
+            className="px-8"
+          >
+            Load More Properties
+          </Button>
         </div>
       </div>
+
+      {/* Property Detail Modal */}
+      <PropertyDetail
+        property={selectedProperty}
+        isOpen={showPropertyDetail}
+        onClose={() => setShowPropertyDetail(false)}
+      />
     </section>
   );
 };

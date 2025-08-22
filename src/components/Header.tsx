@@ -1,9 +1,14 @@
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Menu, X, Home, User, Heart } from 'lucide-react';
+import AuthModal from './AuthModal';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [authModal, setAuthModal] = useState<{ isOpen: boolean; type: 'login' | 'signup' }>({
+    isOpen: false,
+    type: 'login'
+  });
 
   return (
     <header className="bg-white shadow-sm border-b border-border sticky top-0 z-50">
@@ -30,11 +35,20 @@ const Header = () => {
 
           {/* User Actions */}
           <div className="hidden md:flex items-center space-x-4">
-            <Button variant="ghost" size="sm">
+            <Button 
+              variant="ghost" 
+              size="sm"
+              onClick={() => setAuthModal({ isOpen: true, type: 'login' })}
+            >
+              <User className="h-4 w-4 mr-2" />
               Sign In
             </Button>
-            <Button size="sm">
-              Sign Up
+            <Button 
+              size="sm"
+              onClick={() => setAuthModal({ isOpen: true, type: 'signup' })}
+            >
+              <Home className="h-4 w-4 mr-2" />
+              List Property
             </Button>
           </div>
 
@@ -64,17 +78,31 @@ const Header = () => {
                 How It Works
               </a>
               <div className="flex flex-col space-y-2 pt-4 border-t border-border">
-                <Button variant="ghost" size="sm">
+                <Button 
+                  variant="ghost" 
+                  size="sm"
+                  onClick={() => setAuthModal({ isOpen: true, type: 'login' })}
+                >
                   Sign In
                 </Button>
-                <Button size="sm">
-                  Sign Up
+                <Button 
+                  size="sm"
+                  onClick={() => setAuthModal({ isOpen: true, type: 'signup' })}
+                >
+                  List Property
                 </Button>
               </div>
             </div>
           </div>
         )}
       </div>
+
+      {/* Auth Modal */}
+      <AuthModal
+        isOpen={authModal.isOpen}
+        onClose={() => setAuthModal({ ...authModal, isOpen: false })}
+        defaultTab={authModal.type}
+      />
     </header>
   );
 };
