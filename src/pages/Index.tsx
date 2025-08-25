@@ -6,6 +6,9 @@ import PropertyGrid from '@/components/PropertyGrid';
 import Testimonials from '@/components/Testimonials';
 import HowItWorks from '@/components/HowItWorks';
 import Features from '@/components/Features';
+import Pricing from '@/components/Pricing';
+import FAQ from '@/components/FAQ';
+import ContactForm from '@/components/ContactForm';
 import Footer from '@/components/Footer';
 import LoadingStates from '@/components/LoadingStates';
 
@@ -21,6 +24,9 @@ const Index = () => {
       <Testimonials />
       <HowItWorks />
       <Features />
+      <Pricing />
+      <FAQ />
+      <ContactForm />
       <Footer />
     </div>
   );
