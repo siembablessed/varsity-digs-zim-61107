@@ -160,7 +160,7 @@ All colors MUST be HSL.
   }
   
   .feature-card {
-    @apply bg-gradient-to-br from-card to-accent/10 backdrop-blur-sm border border-border/50 rounded-xl p-6 hover:shadow-[var(--shadow-card-hover)] transition-all duration-300 group;
+    @apply bg-gradient-to-br from-card to-accent/10 backdrop-blur-sm border border-border/50 rounded-xl p-6 hover:shadow-[var(--shadow-card-hover)] transition-all duration-300;
   }
   
   .trust-badge {
