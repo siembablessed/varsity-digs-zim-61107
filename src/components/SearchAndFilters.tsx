@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useApp } from '@/context/AppContext';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
@@ -160,8 +161,8 @@ const FiltersPanel = ({ isOpen, onClose }: FiltersPanelProps) => {
 };
 
 const SearchAndFilters = () => {
+  const { searchQuery, setSearchQuery, searchFilters } = useApp();
   const [isFiltersOpen, setIsFiltersOpen] = useState(false);
-  const [searchQuery, setSearchQuery] = useState('');
 
   return (
     <div className="bg-background/95 backdrop-blur-md border-b border-border sticky top-14 sm:top-16 z-40">

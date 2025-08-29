@@ -1,142 +1,30 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useApp } from '@/context/AppContext';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Map } from 'lucide-react';
 import PropertyCard from './PropertyCard';
 import PropertyDetail from './PropertyDetail';
 import MapView from './MapView';
-import sampleRoom1 from '@/assets/sample-room-1.jpg';
-import sampleRoom2 from '@/assets/sample-room-2.jpg';
-import sampleRoom3 from '@/assets/sample-room-3.jpg';
 
 const PropertyGrid = () => {
+  const navigate = useNavigate();
+  const { filteredProperties, toggleFavorite, favorites } = useApp();
   const [selectedProperty, setSelectedProperty] = useState<any>(null);
   const [showPropertyDetail, setShowPropertyDetail] = useState(false);
   const [viewMode, setViewMode] = useState<'grid' | 'map'>('grid');
-  const [favorites, setFavorites] = useState<string[]>([]);
-
-  const handleToggleFavorite = (id: string) => {
-    setFavorites(prev => 
-      prev.includes(id) 
-        ? prev.filter(fav => fav !== id)
-        : [...prev, id]
-    );
-  };
 
   const handleViewDetails = (id: string) => {
-    const property = properties.find(p => p.id === id);
-    if (property) {
-      setSelectedProperty({
-        ...property,
-        images: property.images,
-        tenants: property.availableSpots,
-        rating: property.rating,
-        trusted: property.isTrusted,
-        owner: 'Property Owner'
-      });
-      setShowPropertyDetail(true);
-    }
+    navigate(`/property/${id}`);
   };
 
   const handlePropertySelect = (property: any) => {
     setSelectedProperty(property);
   };
-  // Sample data - in real app this would come from backend
-  const properties = [
-    {
-      id: '1',
-      title: 'Modern Single Room in Mount Pleasant',
-      location: 'Mount Pleasant, Harare',
-      university: 'University of Zimbabwe',
-      price: 250,
-      rating: 4.8,
-      reviewCount: 24,
-      images: [sampleRoom1, sampleRoom2, sampleRoom3],
-      amenities: ['WiFi', 'Kitchen', 'Security', 'Parking'],
-      roomType: 'Single Room',
-      availableSpots: 2,
-      isTrusted: true,
-      isVerified: true
-    },
-    {
-      id: '2',
-      title: 'Shared Kitchen & Living Space',
-      location: 'Avondale, Harare',
-      university: 'University of Zimbabwe',
-      price: 180,
-      rating: 4.6,
-      reviewCount: 18,
-      images: [sampleRoom2],
-      amenities: ['WiFi', 'Kitchen', 'Laundry', 'Garden'],
-      roomType: 'Shared House',
-      availableSpots: 1,
-      isTrusted: false,
-      isVerified: true
-    },
-    {
-      id: '3',
-      title: 'Clean Private Bathroom',
-      location: 'Newlands, Harare',
-      university: 'University of Zimbabwe',
-      price: 300,
-      rating: 4.9,
-      reviewCount: 31,
-      images: [sampleRoom3],
-      amenities: ['WiFi', 'Private Bathroom', 'Security', 'Parking'],
-      roomType: 'Studio',
-      availableSpots: 1,
-      isTrusted: true,
-      isVerified: true
-    },
-    {
-      id: '4',
-      title: 'Budget-Friendly Shared Room',
-      location: 'Marlborough, Harare',
-      university: 'University of Zimbabwe',
-      price: 120,
-      rating: 4.3,
-      reviewCount: 12,
-      images: [sampleRoom1],
-      amenities: ['WiFi', 'Kitchen', 'Bus Route'],
-      roomType: 'Shared Room',
-      availableSpots: 3,
-      isTrusted: false,
-      isVerified: true
-    },
-    {
-      id: '5',
-      title: 'Luxury Student Apartment',
-      location: 'Borrowdale, Harare',
-      university: 'University of Zimbabwe',
-      price: 450,
-      rating: 4.9,
-      reviewCount: 41,
-      images: [sampleRoom2],
-      amenities: ['WiFi', 'Gym', 'Pool', 'Security', 'Parking'],
-      roomType: 'Studio',
-      availableSpots: 1,
-      isTrusted: true,
-      isVerified: true
-    },
-    {
-      id: '6',
-      title: 'Cozy Room Near Campus',
-      location: 'Eastlea, Harare',
-      university: 'University of Zimbabwe',
-      price: 200,
-      rating: 4.5,
-      reviewCount: 16,
-      images: [sampleRoom3],
-      amenities: ['WiFi', 'Kitchen', 'Study Area'],
-      roomType: 'Single Room',
-      availableSpots: 2,
-      isTrusted: false,
-      isVerified: true
-    }
-  ];
 
   return (
-    <section className="py-8 sm:py-12 bg-background">
+    <section id="property-results" className="py-8 sm:py-12 bg-background">
       <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-6">
         <div className="text-center mb-6 sm:mb-8">
           <h2 className="text-2xl sm:text-3xl font-semibold text-foreground mb-3 sm:mb-4">
@@ -160,12 +48,12 @@ const PropertyGrid = () => {
 
           <TabsContent value="grid" className="mt-4 sm:mt-6">
             <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-6">
-              {properties.map((property, index) => (
+              {filteredProperties.map((property, index) => (
                 <div key={property.id} className="animate-fade-in" style={{ animationDelay: `${index * 0.1}s` }}>
                   <PropertyCard
                     {...property}
                     onViewDetails={handleViewDetails}
-                    onToggleFavorite={handleToggleFavorite}
+                    onToggleFavorite={toggleFavorite}
                     isFavorited={favorites.includes(property.id)}
                   />
                 </div>
@@ -175,7 +63,7 @@ const PropertyGrid = () => {
 
             <TabsContent value="map">
               <MapView 
-                properties={properties.map(p => ({
+                properties={filteredProperties.map(p => ({
                   ...p,
                   images: p.images,
                   tenants: p.availableSpots,

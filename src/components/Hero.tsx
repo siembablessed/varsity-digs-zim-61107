@@ -1,23 +1,32 @@
 import { useState } from 'react';
+import { useApp } from '@/context/AppContext';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Search, MapPin, Users, Calendar, ArrowRight, Star } from 'lucide-react';
+import { Search, MapPin, Users, Calendar, ArrowRight } from 'lucide-react';
+import { toast } from 'sonner';
 import heroImage from '@/assets/hero-modern-accommodation.jpg';
 
 const Hero = () => {
-  const [university, setUniversity] = useState('');
-  const [roomType, setRoomType] = useState('');
-  const [moveInDate, setMoveInDate] = useState('');
+  const { updateSearchFilters, searchFilters } = useApp();
   const [isSearching, setIsSearching] = useState(false);
 
   const handleSearch = () => {
+    if (!searchFilters.university) {
+      toast.error("Please select a university");
+      return;
+    }
+    
     setIsSearching(true);
     // Simulate search functionality
     setTimeout(() => {
       setIsSearching(false);
-      // Here you would typically navigate to search results or update state
-    }, 1500);
+      toast.success("Search completed! Check results below.");
+      // Scroll to results
+      document.getElementById('property-results')?.scrollIntoView({ 
+        behavior: 'smooth' 
+      });
+    }, 1000);
   };
 
   const universities = [
@@ -57,7 +66,7 @@ const Hero = () => {
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
             <div className="space-y-1">
               <label className="text-sm font-medium text-muted-foreground">University</label>
-              <Select value={university} onValueChange={setUniversity}>
+              <Select value={searchFilters.university} onValueChange={(value) => updateSearchFilters({ university: value })}>
                 <SelectTrigger className="h-11">
                   <SelectValue placeholder="Choose university" />
                 </SelectTrigger>
@@ -71,7 +80,7 @@ const Hero = () => {
 
             <div className="space-y-1">
               <label className="text-sm font-medium text-muted-foreground">Room Type</label>
-              <Select value={roomType} onValueChange={setRoomType}>
+              <Select value={searchFilters.roomType} onValueChange={(value) => updateSearchFilters({ roomType: value })}>
                 <SelectTrigger className="h-11">
                   <SelectValue placeholder="Room type" />
                 </SelectTrigger>
@@ -88,8 +97,8 @@ const Hero = () => {
               <label className="text-sm font-medium text-muted-foreground">Move-in</label>
               <Input 
                 type="date" 
-                value={moveInDate}
-                onChange={(e) => setMoveInDate(e.target.value)}
+                value={searchFilters.moveInDate}
+                onChange={(e) => updateSearchFilters({ moveInDate: e.target.value })}
                 className="h-11"
               />
             </div>
