@@ -159,20 +159,20 @@ const PropertyGrid = () => {
               </TabsTrigger>
             </TabsList>
 
-            <TabsContent value="grid" className="mt-4 sm:mt-6">
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-                {properties.map((property, index) => (
-                  <div key={property.id} className="animate-fade-in" style={{ animationDelay: `${index * 0.1}s` }}>
-                    <PropertyCard
-                      {...property}
-                      onViewDetails={handleViewDetails}
-                      onToggleFavorite={handleToggleFavorite}
-                      isFavorited={favorites.includes(property.id)}
-                    />
-                  </div>
-                ))}
-              </div>
-            </TabsContent>
+          <TabsContent value="grid" className="mt-4 sm:mt-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-6">
+              {properties.map((property, index) => (
+                <div key={property.id} className="animate-fade-in" style={{ animationDelay: `${index * 0.1}s` }}>
+                  <PropertyCard
+                    {...property}
+                    onViewDetails={handleViewDetails}
+                    onToggleFavorite={handleToggleFavorite}
+                    isFavorited={favorites.includes(property.id)}
+                  />
+                </div>
+              ))}
+            </div>
+          </TabsContent>
 
             <TabsContent value="map">
               <MapView 
@@ -190,10 +190,10 @@ const PropertyGrid = () => {
           </Tabs>
         </div>
 
-        <div className="text-center mt-8">
+        <div className="text-center mt-6 sm:mt-8">
           <Button 
             size="lg"
-            className="px-8"
+            className="px-6 sm:px-8 py-2 sm:py-3 text-sm sm:text-base font-medium hover:shadow-lg transition-all duration-200"
           >
             Load More Properties
           </Button>

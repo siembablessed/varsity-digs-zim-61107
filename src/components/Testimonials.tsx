@@ -1,59 +1,69 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Card } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { Star, Quote, ChevronLeft, ChevronRight } from 'lucide-react';
 
 const Testimonials = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
 
   const testimonials = [
     {
       id: 1,
-      name: 'Chipo Mukamuri',
-      university: 'University of Zimbabwe',
-      year: '3rd Year Engineering',
-      avatar: '/api/placeholder/64/64',
+      name: "Tendai Mukamuri",
+      university: "University of Zimbabwe",
+      location: "Mount Pleasant",
       rating: 5,
-      text: 'VarsityDigs helped me find an amazing place in Mount Pleasant. The owner was verified and honest about everything. No agent fees meant I could afford a better room!',
-      property: 'Modern Studio in Mount Pleasant',
-      savings: '$150'
+      text: "VarsityDigs made finding accommodation so easy! I found the perfect place near campus in just 2 days. The direct contact with property owners saved me from paying agent fees.",
+      avatar: "TM",
+      roomType: "Single Room",
+      verified: true
     },
     {
       id: 2,
-      name: 'Tadiwa Moyo',
-      university: 'Chinhoyi University',
-      year: '2nd Year Business',
-      avatar: '/api/placeholder/64/64',
+      name: "Chipo Magaya",
+      university: "Midlands State University",
+      location: "Gweru",
       rating: 5,
-      text: 'The messaging system kept my details safe until I was ready to meet the landlord. Found my accommodation in just 3 days. Highly recommend!',
-      property: 'Shared House near CUT',
-      savings: '$200'
+      text: "Amazing experience! The property was exactly as described, and the host was incredibly helpful. The platform made everything transparent and secure.",
+      avatar: "CM",
+      roomType: "Shared House",
+      verified: true
     },
     {
       id: 3,
-      name: 'Rumbi Chisango',
-      university: 'Great Zimbabwe University',
-      year: '4th Year Medicine',
-      avatar: '/api/placeholder/64/64',
+      name: "Kudakwashe Moyo",
+      university: "NUST",
+      location: "Bulawayo",
       rating: 5,
-      text: 'As a final year student, I needed somewhere quiet to study. The detailed photos and honest reviews helped me find the perfect place for my thesis year.',
-      property: 'Private Room with Study Area',
-      savings: '$120'
+      text: "Best decision ever! Found a great place with other serious students. The verification system gave me confidence, and the process was seamless.",
+      avatar: "KM",
+      roomType: "Studio",
+      verified: true
     },
     {
       id: 4,
-      name: 'Blessing Nkomo',
-      university: 'NUST',
-      year: '1st Year IT',
-      avatar: '/api/placeholder/64/64',
+      name: "Tariro Chimombe",
+      university: "Great Zimbabwe University",
+      location: "Masvingo",
       rating: 5,
-      text: 'Being new to Bulawayo, I was nervous about finding accommodation. VarsityDigs made it so easy, and I love that I could read reviews from other students.',
-      property: 'Shared House with Tech Students',
-      savings: '$180'
+      text: "VarsityDigs connected me with an amazing host family. The accommodation exceeded my expectations, and I felt safe and welcome from day one.",
+      avatar: "TC",
+      roomType: "Family Home",
+      verified: true
     }
   ];
+
+  // Auto-rotate testimonials
+  useEffect(() => {
+    if (!isPaused) {
+      const interval = setInterval(() => {
+        setCurrentIndex((prev) => (prev + 1) % testimonials.length);
+      }, 5000);
+      return () => clearInterval(interval);
+    }
+  }, [isPaused, testimonials.length]);
 
   const nextTestimonial = () => {
     setCurrentIndex((prev) => (prev + 1) % testimonials.length);
@@ -63,118 +73,133 @@ const Testimonials = () => {
     setCurrentIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length);
   };
 
+  const currentTestimonial = testimonials[currentIndex];
+
   return (
-    <section className="py-16 bg-accent/30">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold text-foreground mb-4 animate-fade-in-up">
-            What Students Are Saying
+    <section className="py-16 sm:py-20 bg-gradient-to-br from-muted/30 to-background">
+      <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-6">
+        {/* Header */}
+        <div className="text-center mb-12 sm:mb-16">
+          <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-4">
+            What Students Say
           </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto animate-fade-in-up">
-            Real stories from students who found their perfect accommodation through VarsityDigs
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+            Join thousands of students who found their perfect accommodation through VarsityDigs
           </p>
         </div>
 
-        {/* Testimonial Carousel */}
-        <div className="relative max-w-4xl mx-auto">
-          <div className="overflow-hidden">
-            <div 
-              className="flex transition-transform duration-500 ease-in-out"
-              style={{ transform: `translateX(-${currentIndex * 100}%)` }}
-            >
-              {testimonials.map((testimonial) => (
-                <div key={testimonial.id} className="w-full flex-shrink-0 px-4">
-                  <Card className="p-8 bg-card shadow-[var(--card-shadow-hover)] border-0 relative animate-scale-in">
-                    <Quote className="absolute top-4 right-4 h-8 w-8 text-primary/20" />
-                    
-                    <div className="flex flex-col md:flex-row gap-6">
-                      {/* Avatar and Info */}
-                      <div className="flex flex-col items-center md:items-start space-y-4 md:w-1/3">
-                        <Avatar className="h-16 w-16">
-                          <AvatarImage src={testimonial.avatar} alt={testimonial.name} />
-                          <AvatarFallback className="bg-primary text-primary-foreground text-lg">
-                            {testimonial.name.split(' ').map(n => n[0]).join('')}
-                          </AvatarFallback>
-                        </Avatar>
-                        
-                        <div className="text-center md:text-left">
-                          <h4 className="font-semibold text-card-foreground">{testimonial.name}</h4>
-                          <p className="text-sm text-muted-foreground">{testimonial.year}</p>
-                          <p className="text-xs text-muted-foreground">{testimonial.university}</p>
-                        </div>
+        {/* Main Testimonial */}
+        <div 
+          className="relative max-w-4xl mx-auto"
+          onMouseEnter={() => setIsPaused(true)}
+          onMouseLeave={() => setIsPaused(false)}
+        >
+          <Card className="relative overflow-hidden bg-gradient-to-br from-card to-card/80 border-border/50 shadow-xl">
+            <CardContent className="p-8 sm:p-12">
+              {/* Quote Icon */}
+              <div className="absolute top-6 left-6 opacity-10">
+                <Quote className="h-16 w-16 text-primary" />
+              </div>
 
-                        {/* Rating */}
-                        <div className="flex items-center gap-1">
-                          {[...Array(testimonial.rating)].map((_, i) => (
-                            <Star key={i} className="h-4 w-4 fill-rating-star text-rating-star" />
-                          ))}
-                        </div>
-
-                        {/* Savings Badge */}
-                        <Badge className="bg-secondary text-secondary-foreground">
-                          Saved {testimonial.savings}
-                        </Badge>
-                      </div>
-
-                      {/* Testimonial Content */}
-                      <div className="md:w-2/3 space-y-4">
-                        <blockquote className="text-lg text-card-foreground leading-relaxed">
-                          "{testimonial.text}"
-                        </blockquote>
-                        
-                        <div className="pt-4 border-t border-border">
-                          <p className="text-sm text-muted-foreground">
-                            Found: <span className="font-medium text-foreground">{testimonial.property}</span>
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  </Card>
+              <div className="relative z-10">
+                {/* Rating */}
+                <div className="flex items-center justify-center mb-6">
+                  <div className="flex items-center gap-1">
+                    {[...Array(currentTestimonial.rating)].map((_, i) => (
+                      <Star key={i} className="h-5 w-5 fill-yellow-400 text-yellow-400" />
+                    ))}
+                  </div>
                 </div>
-              ))}
-            </div>
-          </div>
+
+                {/* Testimonial Text */}
+                <blockquote className="text-lg sm:text-xl text-center text-foreground mb-8 leading-relaxed">
+                  "{currentTestimonial.text}"
+                </blockquote>
+
+                {/* Student Info */}
+                <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6">
+                  <Avatar className="h-16 w-16 ring-4 ring-primary/20">
+                    <AvatarFallback className="bg-primary text-primary-foreground text-lg font-semibold">
+                      {currentTestimonial.avatar}
+                    </AvatarFallback>
+                  </Avatar>
+                  
+                  <div className="text-center sm:text-left">
+                    <div className="flex items-center gap-2 justify-center sm:justify-start mb-1">
+                      <h4 className="text-lg font-semibold text-foreground">
+                        {currentTestimonial.name}
+                      </h4>
+                      {currentTestimonial.verified && (
+                        <div className="w-5 h-5 bg-secondary rounded-full flex items-center justify-center">
+                          <span className="text-xs text-white">✓</span>
+                        </div>
+                      )}
+                    </div>
+                    <p className="text-sm text-muted-foreground">
+                      {currentTestimonial.university}
+                    </p>
+                    <p className="text-xs text-muted-foreground">
+                      {currentTestimonial.roomType} • {currentTestimonial.location}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
 
           {/* Navigation Buttons */}
           <Button
             variant="outline"
-            size="sm"
+            size="icon"
             onClick={prevTestimonial}
-            className="absolute left-0 top-1/2 transform -translate-y-1/2 -translate-x-12 rounded-full h-10 w-10 p-0 hover:scale-110 transition-transform"
+            className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-background/80 backdrop-blur-sm border-border/50 hover:bg-background/90 shadow-lg"
           >
-            <ChevronLeft className="h-4 w-4" />
+            <ChevronLeft className="h-5 w-5" />
           </Button>
           
           <Button
             variant="outline"
-            size="sm"
+            size="icon"
             onClick={nextTestimonial}
-            className="absolute right-0 top-1/2 transform -translate-y-1/2 translate-x-12 rounded-full h-10 w-10 p-0 hover:scale-110 transition-transform"
+            className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-background/80 backdrop-blur-sm border-border/50 hover:bg-background/90 shadow-lg"
           >
-            <ChevronRight className="h-4 w-4" />
+            <ChevronRight className="h-5 w-5" />
           </Button>
-
-          {/* Indicators */}
-          <div className="flex justify-center mt-8 space-x-2">
-            {testimonials.map((_, index) => (
-              <button
-                key={index}
-                onClick={() => setCurrentIndex(index)}
-                className={`h-2 w-2 rounded-full transition-all duration-200 ${
-                  index === currentIndex 
-                    ? 'bg-primary w-8' 
-                    : 'bg-muted-foreground/30 hover:bg-muted-foreground/50'
-                }`}
-              />
-            ))}
-          </div>
         </div>
 
-        {/* Call to Action */}
-        <div className="text-center mt-12">
-          <Button size="lg" className="animate-bounce-subtle">
-            Start Your Search Today
-          </Button>
+        {/* Testimonial Indicators */}
+        <div className="flex justify-center gap-2 mt-8">
+          {testimonials.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => setCurrentIndex(index)}
+              className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                index === currentIndex 
+                  ? 'bg-primary w-8' 
+                  : 'bg-muted-foreground/30 hover:bg-muted-foreground/50'
+              }`}
+            />
+          ))}
+        </div>
+
+        {/* Stats */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-16 text-center">
+          <div className="space-y-2">
+            <div className="text-2xl sm:text-3xl font-bold text-primary">2,500+</div>
+            <div className="text-sm text-muted-foreground">Happy Students</div>
+          </div>
+          <div className="space-y-2">
+            <div className="text-2xl sm:text-3xl font-bold text-primary">4.9★</div>
+            <div className="text-sm text-muted-foreground">Average Rating</div>
+          </div>
+          <div className="space-y-2">
+            <div className="text-2xl sm:text-3xl font-bold text-primary">1,200+</div>
+            <div className="text-sm text-muted-foreground">Verified Properties</div>
+          </div>
+          <div className="space-y-2">
+            <div className="text-2xl sm:text-3xl font-bold text-primary">8</div>
+            <div className="text-sm text-muted-foreground">Universities</div>
+          </div>
         </div>
       </div>
     </section>
