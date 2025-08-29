@@ -136,15 +136,14 @@ const PropertyGrid = () => {
   ];
 
   return (
-    <section className="py-8 sm:py-12 bg-muted/30">
+    <section className="py-8 sm:py-12 bg-background">
       <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-6">
         <div className="text-center mb-6 sm:mb-8">
-          <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-3 sm:mb-4">
-            Featured Accommodations
+          <h2 className="text-2xl sm:text-3xl font-semibold text-foreground mb-3 sm:mb-4">
+            Student accommodation near you
           </h2>
-          <p className="text-sm sm:text-base text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-            Discover verified student accommodations near University of Zimbabwe. 
-            All properties are vetted by our team and reviewed by students.
+          <p className="text-sm sm:text-base text-muted-foreground max-w-2xl mx-auto">
+            Verified properties reviewed by students
           </p>
         </div>
 
