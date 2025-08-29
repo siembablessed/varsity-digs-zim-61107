@@ -69,7 +69,6 @@ const Header = () => {
             <div className="flex items-center space-x-2 group cursor-pointer">
               <div className="relative">
                 <Home className="h-7 w-7 sm:h-8 sm:w-8 text-primary transition-transform duration-200 group-hover:scale-110" />
-                <div className="absolute -inset-1 bg-primary/20 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-200 blur-sm"></div>
               </div>
               <span className="text-lg sm:text-xl font-bold text-foreground">VarsityDigs</span>
             </div>
