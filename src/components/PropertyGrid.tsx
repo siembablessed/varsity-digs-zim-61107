@@ -136,33 +136,33 @@ const PropertyGrid = () => {
   ];
 
   return (
-    <section className="py-12 bg-muted/30">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-8">
-          <h2 className="text-3xl font-bold text-foreground mb-4">
+    <section className="py-8 sm:py-12 bg-muted/30">
+      <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-6">
+        <div className="text-center mb-6 sm:mb-8">
+          <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-3 sm:mb-4">
             Featured Accommodations
           </h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-sm sm:text-base text-muted-foreground max-w-2xl mx-auto leading-relaxed">
             Discover verified student accommodations near University of Zimbabwe. 
             All properties are vetted by our team and reviewed by students.
           </p>
         </div>
 
         {/* View Toggle */}
-        <div className="mb-8">
+        <div className="mb-6 sm:mb-8">
           <Tabs value={viewMode} onValueChange={(value) => setViewMode(value as 'grid' | 'map')}>
-            <TabsList className="grid w-fit grid-cols-2">
-              <TabsTrigger value="grid">Grid View</TabsTrigger>
-              <TabsTrigger value="map" className="flex items-center gap-2">
-                <Map className="h-4 w-4" />
+            <TabsList className="grid w-fit grid-cols-2 h-9 sm:h-10">
+              <TabsTrigger value="grid" className="text-xs sm:text-sm px-3 sm:px-4">Grid View</TabsTrigger>
+              <TabsTrigger value="map" className="flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm px-3 sm:px-4">
+                <Map className="h-3 w-3 sm:h-4 sm:w-4" />
                 Map View
               </TabsTrigger>
             </TabsList>
 
-            <TabsContent value="grid">
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <TabsContent value="grid" className="mt-4 sm:mt-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
                 {properties.map((property, index) => (
-                  <div key={property.id} style={{ animationDelay: `${index * 0.1}s` }}>
+                  <div key={property.id} className="animate-fade-in" style={{ animationDelay: `${index * 0.1}s` }}>
                     <PropertyCard
                       {...property}
                       onViewDetails={handleViewDetails}

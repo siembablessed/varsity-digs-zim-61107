@@ -164,40 +164,41 @@ const SearchAndFilters = () => {
   const [searchQuery, setSearchQuery] = useState('');
 
   return (
-    <div className="bg-white border-b border-border sticky top-16 z-40">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-        <div className="flex gap-4">
+    <div className="bg-background/95 backdrop-blur-md border-b border-border sticky top-14 sm:top-16 z-40">
+      <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-6 py-3 sm:py-4">
+        <div className="flex gap-2 sm:gap-4">
           {/* Search */}
-          <div className="flex-1 relative">
+          <div className="flex-1 relative min-w-0">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
             <Input
-              placeholder="Search by location, university, or property name..."
+              placeholder="Search location, university..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="pl-10"
+              className="pl-10 text-sm sm:text-base h-9 sm:h-10"
             />
           </div>
 
           {/* Filter Toggle */}
           <Button
             variant="outline"
+            size="sm"
             onClick={() => setIsFiltersOpen(!isFiltersOpen)}
-            className="flex items-center gap-2 transition-all duration-200 hover:scale-105"
+            className="flex items-center gap-1.5 sm:gap-2 transition-all duration-200 hover:scale-105 px-3 sm:px-4 h-9 sm:h-10 text-xs sm:text-sm flex-shrink-0"
           >
-            <SlidersHorizontal className="h-4 w-4" />
-            Filters
+            <SlidersHorizontal className="h-3 w-3 sm:h-4 sm:w-4" />
+            <span className="hidden xs:inline">Filters</span>
           </Button>
         </div>
 
         {/* Active Filters Summary */}
-        <div className="mt-3 flex flex-wrap gap-2">
-          <Badge variant="secondary" className="animate-fade-in">
+        <div className="mt-2 sm:mt-3 flex flex-wrap gap-1.5 sm:gap-2">
+          <Badge variant="secondary" className="animate-fade-in text-xs px-2 py-1">
             University of Zimbabwe
           </Badge>
-          <Badge variant="secondary" className="animate-fade-in">
+          <Badge variant="secondary" className="animate-fade-in text-xs px-2 py-1">
             $100 - $300
           </Badge>
-          <Badge variant="secondary" className="animate-fade-in">
+          <Badge variant="secondary" className="animate-fade-in text-xs px-2 py-1">
             WiFi + Kitchen
           </Badge>
         </div>

@@ -21,7 +21,7 @@ const Hero = () => {
   ];
 
   return (
-    <section className="relative min-h-[600px] flex items-center justify-center bg-gradient-to-br from-primary/10 via-background to-secondary/10">
+    <section className="relative min-h-[500px] sm:min-h-[600px] lg:min-h-[700px] flex items-center justify-center bg-gradient-to-br from-primary/10 via-background to-secondary/10">
       {/* Background Image with Overlay */}
       <div className="absolute inset-0 z-0">
         <img 
@@ -32,20 +32,20 @@ const Hero = () => {
         <div className="absolute inset-0 bg-gradient-to-br from-primary/80 via-primary/60 to-secondary/70"></div>
       </div>
 
-      <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <h1 className="text-4xl md:text-6xl font-bold text-white mb-6">
+      <div className="relative z-10 max-w-4xl mx-auto px-3 sm:px-4 lg:px-6 text-center">
+        <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 sm:mb-6 leading-tight">
           Find Your Perfect Student 
-          <span className="block text-secondary-foreground">Accommodation</span>
+          <span className="block text-secondary-foreground mt-1 sm:mt-2">Accommodation</span>
         </h1>
         
-        <p className="text-xl md:text-2xl text-white/90 mb-8 max-w-2xl mx-auto">
+        <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-white/90 mb-6 sm:mb-8 max-w-2xl mx-auto leading-relaxed">
           Connect directly with verified homeowners near Zimbabwe's top universities. 
           No agent fees, just honest accommodation.
         </p>
 
         {/* Search Form */}
-        <div className="bg-white rounded-lg p-6 shadow-[var(--card-shadow-hover)] max-w-3xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+        <div className="bg-white rounded-lg p-4 sm:p-6 shadow-[var(--card-shadow-hover)] max-w-3xl mx-auto">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 mb-4">
             <div className="space-y-2">
               <label className="text-sm font-medium text-foreground flex items-center">
                 <MapPin className="h-4 w-4 mr-1" />
@@ -93,24 +93,24 @@ const Hero = () => {
             </div>
           </div>
 
-          <Button size="lg" className="w-full">
-            <Search className="h-5 w-5 mr-2" />
+          <Button size="lg" className="w-full py-3 sm:py-4 text-sm sm:text-base font-semibold">
+            <Search className="h-4 w-4 sm:h-5 sm:w-5 mr-2" />
             Find Accommodation
           </Button>
         </div>
 
         {/* Trust Indicators */}
-        <div className="mt-8 flex flex-wrap justify-center gap-6 text-white/80">
-          <div className="flex items-center">
-            <div className="h-2 w-2 bg-secondary rounded-full mr-2"></div>
+        <div className="mt-6 sm:mt-8 flex flex-col sm:flex-row sm:flex-wrap justify-center gap-4 sm:gap-6 text-white/80 text-sm sm:text-base">
+          <div className="flex items-center justify-center">
+            <div className="h-2 w-2 bg-secondary rounded-full mr-2 animate-pulse"></div>
             <span>Verified Properties</span>
           </div>
-          <div className="flex items-center">
-            <div className="h-2 w-2 bg-secondary rounded-full mr-2"></div>
+          <div className="flex items-center justify-center">
+            <div className="h-2 w-2 bg-secondary rounded-full mr-2 animate-pulse"></div>
             <span>Direct Owner Contact</span>
           </div>
-          <div className="flex items-center">
-            <div className="h-2 w-2 bg-secondary rounded-full mr-2"></div>
+          <div className="flex items-center justify-center">
+            <div className="h-2 w-2 bg-secondary rounded-full mr-2 animate-pulse"></div>
             <span>No Hidden Fees</span>
           </div>
         </div>
