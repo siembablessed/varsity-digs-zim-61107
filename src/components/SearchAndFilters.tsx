@@ -12,8 +12,8 @@ interface FiltersPanelProps {
 }
 
 const FiltersPanel = ({ isOpen, onClose }: FiltersPanelProps) => {
-  const [priceRange, setPriceRange] = useState({ min: '', max: '' });
-  const [selectedAmenities, setSelectedAmenities] = useState<string[]>([]);
+  const { searchFilters, updateSearchFilters, clearFilters } = useApp();
+  const [selectedAmenities, setSelectedAmenities] = useState<string[]>(searchFilters.amenities);
 
   const universities = [
     'University of Zimbabwe (UZ)',
@@ -30,11 +30,12 @@ const FiltersPanel = ({ isOpen, onClose }: FiltersPanelProps) => {
   const roomTypes = ['Single Room', 'Shared Room', 'Studio', 'Shared House'];
 
   const toggleAmenity = (amenity: string) => {
-    setSelectedAmenities(prev => 
-      prev.includes(amenity) 
-        ? prev.filter(a => a !== amenity)
-        : [...prev, amenity]
-    );
+    const newAmenities = selectedAmenities.includes(amenity) 
+      ? selectedAmenities.filter(a => a !== amenity)
+      : [...selectedAmenities, amenity];
+    
+    setSelectedAmenities(newAmenities);
+    updateSearchFilters({ amenities: newAmenities });
   };
 
   if (!isOpen) return null;
@@ -66,7 +67,7 @@ const FiltersPanel = ({ isOpen, onClose }: FiltersPanelProps) => {
               <MapPin className="h-4 w-4 mr-2" />
               University
             </label>
-            <Select>
+            <Select value={searchFilters.university} onValueChange={(value) => updateSearchFilters({ university: value })}>
               <SelectTrigger>
                 <SelectValue placeholder="Select university" />
               </SelectTrigger>
@@ -87,13 +88,13 @@ const FiltersPanel = ({ isOpen, onClose }: FiltersPanelProps) => {
             <div className="grid grid-cols-2 gap-2">
               <Input 
                 placeholder="Min" 
-                value={priceRange.min}
-                onChange={(e) => setPriceRange(prev => ({ ...prev, min: e.target.value }))}
+                value={searchFilters.priceMin}
+                onChange={(e) => updateSearchFilters({ priceMin: e.target.value })}
               />
               <Input 
                 placeholder="Max" 
-                value={priceRange.max}
-                onChange={(e) => setPriceRange(prev => ({ ...prev, max: e.target.value }))}
+                value={searchFilters.priceMax}
+                onChange={(e) => updateSearchFilters({ priceMax: e.target.value })}
               />
             </div>
           </div>
@@ -104,7 +105,7 @@ const FiltersPanel = ({ isOpen, onClose }: FiltersPanelProps) => {
               <Users className="h-4 w-4 mr-2" />
               Room Type
             </label>
-            <Select>
+            <Select value={searchFilters.roomType} onValueChange={(value) => updateSearchFilters({ roomType: value })}>
               <SelectTrigger>
                 <SelectValue placeholder="Select room type" />
               </SelectTrigger>
@@ -122,7 +123,11 @@ const FiltersPanel = ({ isOpen, onClose }: FiltersPanelProps) => {
               <Calendar className="h-4 w-4 mr-2" />
               Move-in Date
             </label>
-            <Input type="date" />
+            <Input 
+              type="date" 
+              value={searchFilters.moveInDate}
+              onChange={(e) => updateSearchFilters({ moveInDate: e.target.value })}
+            />
           </div>
 
           {/* Amenities */}
@@ -144,11 +149,11 @@ const FiltersPanel = ({ isOpen, onClose }: FiltersPanelProps) => {
 
           {/* Apply Button */}
           <div className="space-y-2">
-            <Button className="w-full">
+            <Button className="w-full" onClick={onClose}>
               Apply Filters
             </Button>
             <Button variant="outline" className="w-full" onClick={() => {
-              setPriceRange({ min: '', max: '' });
+              clearFilters();
               setSelectedAmenities([]);
             }}>
               Clear All
@@ -161,7 +166,7 @@ const FiltersPanel = ({ isOpen, onClose }: FiltersPanelProps) => {
 };
 
 const SearchAndFilters = () => {
-  const { searchQuery, setSearchQuery, searchFilters } = useApp();
+  const { searchQuery, setSearchQuery, searchFilters, updateSearchFilters, clearFilters } = useApp();
   const [isFiltersOpen, setIsFiltersOpen] = useState(false);
 
   return (
@@ -192,17 +197,31 @@ const SearchAndFilters = () => {
         </div>
 
         {/* Active Filters Summary */}
-        <div className="mt-2 sm:mt-3 flex flex-wrap gap-1.5 sm:gap-2">
-          <Badge variant="secondary" className="animate-fade-in text-xs px-2 py-1">
-            University of Zimbabwe
-          </Badge>
-          <Badge variant="secondary" className="animate-fade-in text-xs px-2 py-1">
-            $100 - $300
-          </Badge>
-          <Badge variant="secondary" className="animate-fade-in text-xs px-2 py-1">
-            WiFi + Kitchen
-          </Badge>
-        </div>
+        {(searchFilters.university || searchFilters.priceMin || searchFilters.priceMax || searchFilters.roomType || searchFilters.amenities.length > 0) && (
+          <div className="mt-2 sm:mt-3 flex flex-wrap gap-1.5 sm:gap-2">
+            {searchFilters.university && (
+              <Badge variant="secondary" className="animate-fade-in text-xs px-2 py-1">
+                {searchFilters.university.replace(/\s*\([^)]*\)/, '')}
+              </Badge>
+            )}
+            {(searchFilters.priceMin || searchFilters.priceMax) && (
+              <Badge variant="secondary" className="animate-fade-in text-xs px-2 py-1">
+                ${searchFilters.priceMin || '0'} - ${searchFilters.priceMax || '∞'}
+              </Badge>
+            )}
+            {searchFilters.roomType && (
+              <Badge variant="secondary" className="animate-fade-in text-xs px-2 py-1">
+                {searchFilters.roomType}
+              </Badge>
+            )}
+            {searchFilters.amenities.length > 0 && (
+              <Badge variant="secondary" className="animate-fade-in text-xs px-2 py-1">
+                {searchFilters.amenities.slice(0, 2).join(' + ')}
+                {searchFilters.amenities.length > 2 && ` +${searchFilters.amenities.length - 2}`}
+              </Badge>
+            )}
+          </div>
+        )}
       </div>
 
       <FiltersPanel isOpen={isFiltersOpen} onClose={() => setIsFiltersOpen(false)} />

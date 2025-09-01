@@ -2,11 +2,14 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useApp } from '@/context/AppContext';
 import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Map } from 'lucide-react';
+import { Map, BarChart3 } from 'lucide-react';
 import PropertyCard from './PropertyCard';
 import PropertyDetail from './PropertyDetail';
+import PropertyComparison from './PropertyComparison';
 import MapView from './MapView';
+import { usePropertyComparison } from '@/hooks/usePropertyComparison';
 
 const PropertyGrid = () => {
   const navigate = useNavigate();
@@ -14,6 +17,17 @@ const PropertyGrid = () => {
   const [selectedProperty, setSelectedProperty] = useState<any>(null);
   const [showPropertyDetail, setShowPropertyDetail] = useState(false);
   const [viewMode, setViewMode] = useState<'grid' | 'map'>('grid');
+  
+  const {
+    comparisonList,
+    isComparisonOpen,
+    addToComparison,
+    removeFromComparison,
+    isInComparison,
+    openComparison,
+    closeComparison,
+    comparisonCount
+  } = usePropertyComparison();
 
   const handleViewDetails = (id: string) => {
     navigate(`/property/${id}`);
@@ -35,8 +49,8 @@ const PropertyGrid = () => {
           </p>
         </div>
 
-        {/* View Toggle */}
-        <div className="mb-6 sm:mb-8">
+        {/* View Toggle & Comparison */}
+        <div className="mb-6 sm:mb-8 flex flex-col sm:flex-row gap-4 sm:items-center sm:justify-between">
           <Tabs value={viewMode} onValueChange={(value) => setViewMode(value as 'grid' | 'map')}>
             <TabsList className="grid w-fit grid-cols-2 h-9 sm:h-10">
               <TabsTrigger value="grid" className="text-xs sm:text-sm px-3 sm:px-4">Grid View</TabsTrigger>
@@ -45,7 +59,25 @@ const PropertyGrid = () => {
                 Map View
               </TabsTrigger>
             </TabsList>
+          </Tabs>
+          
+          {/* Comparison Button */}
+          {comparisonCount > 0 && (
+            <Button 
+              variant="outline" 
+              onClick={openComparison}
+              className="flex items-center gap-2 relative"
+            >
+              <BarChart3 className="h-4 w-4" />
+              Compare Properties
+              <Badge variant="secondary" className="ml-1">
+                {comparisonCount}
+              </Badge>
+            </Button>
+          )}
+        </div>
 
+        <Tabs value={viewMode} onValueChange={(value) => setViewMode(value as 'grid' | 'map')}>
           <TabsContent value="grid" className="mt-4 sm:mt-6">
             <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-6">
               {filteredProperties.map((property, index) => (
@@ -55,27 +87,28 @@ const PropertyGrid = () => {
                     onViewDetails={handleViewDetails}
                     onToggleFavorite={toggleFavorite}
                     isFavorited={favorites.includes(property.id)}
+                    onAddToComparison={addToComparison}
+                    isInComparison={isInComparison(property.id)}
                   />
                 </div>
               ))}
             </div>
           </TabsContent>
 
-            <TabsContent value="map">
-              <MapView 
-                properties={filteredProperties.map(p => ({
-                  ...p,
-                  images: p.images,
-                  tenants: p.availableSpots,
-                  rating: p.rating,
-                  trusted: p.isTrusted
-                }))}
-                selectedProperty={selectedProperty}
-                onPropertySelect={handlePropertySelect}
-              />
-            </TabsContent>
-          </Tabs>
-        </div>
+          <TabsContent value="map">
+            <MapView 
+              properties={filteredProperties.map(p => ({
+                ...p,
+                images: p.images,
+                tenants: p.availableSpots,
+                rating: p.rating,
+                trusted: p.isTrusted
+              }))}
+              selectedProperty={selectedProperty}
+              onPropertySelect={handlePropertySelect}
+            />
+          </TabsContent>
+        </Tabs>
 
         <div className="text-center mt-6 sm:mt-8">
           <Button 
@@ -92,6 +125,14 @@ const PropertyGrid = () => {
         property={selectedProperty}
         isOpen={showPropertyDetail}
         onClose={() => setShowPropertyDetail(false)}
+      />
+      
+      {/* Property Comparison Modal */}
+      <PropertyComparison
+        properties={comparisonList}
+        isOpen={isComparisonOpen}
+        onClose={closeComparison}
+        onRemoveProperty={removeFromComparison}
       />
     </section>
   );

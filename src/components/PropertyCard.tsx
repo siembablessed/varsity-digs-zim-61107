@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Star, MapPin, Users, Wifi, Car, Utensils, Shield, Heart, Share2, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Star, MapPin, Users, Wifi, Car, Utensils, Shield, Heart, Share2, ChevronLeft, ChevronRight, BarChart3, Eye } from 'lucide-react';
+import ImageGallery from './ImageGallery';
 
 interface PropertyCardProps {
   id: string;
@@ -20,6 +21,8 @@ interface PropertyCardProps {
   onViewDetails?: (id: string) => void;
   onToggleFavorite?: (id: string) => void;
   isFavorited?: boolean;
+  onAddToComparison?: (property: any) => void;
+  isInComparison?: boolean;
 }
 
 const PropertyCard = ({
@@ -38,10 +41,18 @@ const PropertyCard = ({
   isVerified = false,
   onViewDetails,
   onToggleFavorite,
-  isFavorited = false
+  isFavorited = false,
+  onAddToComparison,
+  isInComparison = false
 }: PropertyCardProps) => {
   const [isHovered, setIsHovered] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [showGallery, setShowGallery] = useState(false);
+
+  const propertyData = {
+    id, title, location, university, price, rating, reviewCount, 
+    images, amenities, roomType, availableSpots, isTrusted, isVerified
+  };
   
   const getAmenityIcon = (amenity: string) => {
     const icons: { [key: string]: JSX.Element } = {
@@ -76,7 +87,27 @@ const PropertyCard = ({
           src={images[currentImageIndex] || images[0]} 
           alt={title}
           className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+          onClick={(e) => {
+            e.stopPropagation();
+            setShowGallery(true);
+          }}
         />
+        
+        {/* View Gallery Button */}
+        {images.length > 1 && isHovered && (
+          <Button
+            size="sm"
+            variant="secondary"
+            className="absolute bottom-3 left-3 opacity-90"
+            onClick={(e) => {
+              e.stopPropagation();
+              setShowGallery(true);
+            }}
+          >
+            <Eye className="h-3 w-3 mr-1" />
+            View All ({images.length})
+          </Button>
+        )}
         
         {/* Image Navigation */}
         {images.length > 1 && isHovered && (
@@ -110,22 +141,41 @@ const PropertyCard = ({
           )}
         </div>
 
-        {/* Favorite Button */}
-        <button
-          onClick={(e) => {
-            e.stopPropagation();
-            onToggleFavorite?.(id);
-          }}
-          className="absolute top-3 right-3 p-2 rounded-full bg-white/10 backdrop-blur-sm hover:bg-white/20 transition-all duration-200"
-        >
-          <Heart 
-            className={`h-4 w-4 transition-colors duration-200 ${
-              isFavorited 
-                ? 'fill-red-500 text-red-500' 
-                : 'text-white hover:text-red-300'
-            }`} 
-          />
-        </button>
+        {/* Action Buttons */}
+        <div className="absolute top-3 right-3 flex flex-col gap-2">
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              onToggleFavorite?.(id);
+            }}
+            className="p-2 rounded-full bg-white/10 backdrop-blur-sm hover:bg-white/20 transition-all duration-200"
+          >
+            <Heart 
+              className={`h-4 w-4 transition-colors duration-200 ${
+                isFavorited 
+                  ? 'fill-red-500 text-red-500' 
+                  : 'text-white hover:text-red-300'
+              }`} 
+            />
+          </button>
+          
+          {onAddToComparison && (
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                onAddToComparison(propertyData);
+              }}
+              className={`p-2 rounded-full backdrop-blur-sm transition-all duration-200 ${
+                isInComparison 
+                  ? 'bg-primary text-primary-foreground' 
+                  : 'bg-white/10 hover:bg-white/20 text-white hover:text-primary'
+              }`}
+              title={isInComparison ? 'Remove from comparison' : 'Add to comparison'}
+            >
+              <BarChart3 className="h-4 w-4" />
+            </button>
+          )}
+        </div>
 
         {/* Image Dots */}
         {images.length > 1 && (
@@ -205,6 +255,14 @@ const PropertyCard = ({
           </div>
         </div>
       </div>
+      
+      {/* Image Gallery Modal */}
+      <ImageGallery
+        images={images}
+        isOpen={showGallery}
+        onClose={() => setShowGallery(false)}
+        initialIndex={currentImageIndex}
+      />
     </div>
   );
 };
