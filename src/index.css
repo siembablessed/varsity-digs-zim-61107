@@ -9,68 +9,72 @@ All colors MUST be HSL.
 @layer base {
   :root {
     --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    --foreground: 225 15% 15%;
 
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card-foreground: 225 15% 15%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover-foreground: 225 15% 15%;
 
-    /* University-focused blues and greens */
-    --primary: 213 94% 68%;
+    /* Modern vibrant blues and teals */
+    --primary: 217 91% 60%;
     --primary-foreground: 0 0% 100%;
-    --primary-dark: 213 94% 40%;
+    --primary-dark: 217 91% 35%;
+    --primary-light: 217 91% 85%;
 
-    --secondary: 164 83% 42%;
+    --secondary: 173 80% 40%;
     --secondary-foreground: 0 0% 100%;
+    --secondary-light: 173 60% 90%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: 220 14% 96%;
+    --muted-foreground: 220 9% 46%;
 
-    --accent: 213 100% 96%;
-    --accent-foreground: 213 94% 40%;
+    --accent: 217 100% 97%;
+    --accent-foreground: 217 91% 35%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 213 94% 68%;
+    --border: 220 13% 91%;
+    --input: 220 13% 91%;
+    --ring: 217 91% 60%;
 
-    /* Airbnb-inspired gradients and effects */
-    --hero-gradient: linear-gradient(135deg, hsl(213 94% 68%), hsl(164 83% 42%));
-    --card-gradient: linear-gradient(145deg, hsl(0 0% 100%), hsl(213 100% 98%));
-    --success-gradient: linear-gradient(135deg, hsl(164 83% 42%), hsl(158 64% 52%));
-    --premium-gradient: linear-gradient(135deg, hsl(280 100% 70%), hsl(240 100% 70%));
-    --trust-gradient: linear-gradient(135deg, hsl(34 100% 52%), hsl(45 100% 51%));
-    --feature-gradient: linear-gradient(135deg, hsl(213 94% 68% / 0.1), hsl(164 83% 42% / 0.1));
+    /* Modern gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(217 91% 60%), hsl(173 80% 40%));
+    --gradient-hero: linear-gradient(135deg, hsl(217 91% 60% / 0.95), hsl(173 80% 40% / 0.95));
+    --gradient-card: linear-gradient(145deg, hsl(0 0% 100%), hsl(217 100% 98%));
+    --gradient-success: linear-gradient(135deg, hsl(173 80% 40%), hsl(158 64% 52%));
+    --gradient-premium: linear-gradient(135deg, hsl(280 100% 70%), hsl(240 100% 70%));
+    --gradient-trust: linear-gradient(135deg, hsl(34 100% 52%), hsl(45 100% 51%));
+    --gradient-subtle: linear-gradient(135deg, hsl(217 91% 60% / 0.05), hsl(173 80% 40% / 0.05));
     
-    /* Airbnb-style shadows */
-    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-    --shadow-card: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
-    --shadow-card-hover: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-    --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-    --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    /* Refined shadows */
+    --shadow-xs: 0 1px 2px 0 rgba(0, 0, 0, 0.04);
+    --shadow-sm: 0 2px 4px -1px rgba(0, 0, 0, 0.06), 0 1px 2px -1px rgba(0, 0, 0, 0.04);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.08), 0 2px 4px -1px rgba(0, 0, 0, 0.04);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -2px rgba(0, 0, 0, 0.04);
+    --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.08), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+    --shadow-glow: 0 0 20px hsl(217 91% 60% / 0.3);
     
-    /* Legacy shadows for compatibility */
-    --card-shadow: var(--shadow-card);
-    --card-shadow-hover: var(--shadow-card-hover);
-    --card-shadow-lg: var(--shadow-lg);
+    /* Legacy support */
+    --shadow-card: var(--shadow-md);
+    --shadow-card-hover: var(--shadow-lg);
+    --shadow-card-lg: var(--shadow-xl);
     
     --trusted-badge: 34 100% 52%;
     --rating-star: 45 100% 51%;
     --success: 158 64% 52%;
     --warning: 45 100% 51%;
-    --info: 213 94% 68%;
+    --info: 217 91% 60%;
     
-    /* Pricing specific colors */
-    --pricing-basic: 213 94% 68%;
+    /* Pricing colors */
+    --pricing-basic: 217 91% 60%;
     --pricing-premium: 280 100% 70%;
-    --pricing-enterprise: 164 83% 42%;
+    --pricing-enterprise: 173 80% 40%;
 
-    --radius: 0.5rem;
+    --radius: 0.75rem;
 
     /* Responsive spacing & effects */
     --spacing-xs: 0.25rem;
@@ -145,29 +149,45 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     font-feature-settings: 'rlig' 1, 'calt' 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-weight: 600;
   }
 }
 
 @layer components {
-  /* Airbnb-inspired component utilities */
-  .card-airbnb {
-    @apply bg-card rounded-xl border-0 shadow-[var(--shadow-card)] hover:shadow-[var(--shadow-card-hover)] transition-all duration-300;
+  /* Modern component utilities */
+  .card-modern {
+    @apply bg-card rounded-2xl border-0 shadow-[var(--shadow-md)] hover:shadow-[var(--shadow-lg)] transition-all duration-300;
   }
   
-  .card-airbnb-lg {
-    @apply bg-card rounded-2xl border-0 shadow-[var(--shadow-lg)] hover:shadow-[var(--shadow-xl)] transition-all duration-300;
+  .card-modern-lg {
+    @apply bg-card rounded-3xl border-0 shadow-[var(--shadow-lg)] hover:shadow-[var(--shadow-xl)] transition-all duration-300;
   }
   
   .feature-card {
-    @apply bg-gradient-to-br from-card to-accent/10 backdrop-blur-sm border border-border/50 rounded-xl p-6 hover:shadow-[var(--shadow-card-hover)] transition-all duration-300;
+    @apply bg-gradient-to-br from-card via-card to-accent/20 backdrop-blur-sm border border-border/50 rounded-2xl p-6 hover:shadow-[var(--shadow-lg)] transition-all duration-300;
   }
   
   .trust-badge {
-    @apply inline-flex items-center gap-2 bg-gradient-to-r from-[hsl(var(--trusted-badge))] to-[hsl(var(--warning))] text-white text-xs font-medium px-3 py-1 rounded-full shadow-sm;
+    @apply inline-flex items-center gap-2 bg-gradient-to-r from-[hsl(var(--trusted-badge))] to-[hsl(var(--warning))] text-white text-xs font-semibold px-3 py-1.5 rounded-full shadow-sm;
   }
   
   .floating-action {
-    @apply fixed bottom-6 right-6 bg-primary text-primary-foreground rounded-full p-4 shadow-[var(--shadow-xl)] hover:shadow-[var(--shadow-2xl)] transition-all duration-300 hover:scale-105 z-50;
+    @apply fixed bottom-6 right-6 bg-primary text-primary-foreground rounded-full p-4 shadow-[var(--shadow-xl)] hover:shadow-[var(--shadow-2xl)] transition-all duration-300 hover:scale-110 z-50;
+  }
+  
+  .btn-gradient {
+    @apply bg-gradient-to-r from-primary to-secondary text-white font-semibold rounded-xl shadow-[var(--shadow-md)] hover:shadow-[var(--shadow-lg)] transition-all duration-300;
+  }
+  
+  .gradient-text {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary;
   }
 }

@@ -59,18 +59,18 @@ const Header = () => {
 
   return (
     <header className={`
-      bg-background/95 backdrop-blur-md border-b border-border sticky top-0 z-50 transition-all duration-300
-      ${isScrolled ? 'shadow-lg bg-background/98' : 'shadow-sm'}
+      bg-background/80 backdrop-blur-xl border-b border-border/50 sticky top-0 z-50 transition-all duration-300
+      ${isScrolled ? 'shadow-[var(--shadow-md)] bg-background/95' : 'shadow-[var(--shadow-sm)]'}
     `}>
       <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-6">
-        <div className="flex justify-between items-center h-14 sm:h-16">
+        <div className="flex justify-between items-center h-16 sm:h-18">
           {/* Logo */}
           <div className="flex items-center flex-shrink-0">
-            <div className="flex items-center space-x-2 group cursor-pointer">
-              <div className="relative">
-                <Home className="h-7 w-7 sm:h-8 sm:w-8 text-primary transition-transform duration-200 group-hover:scale-110" />
+            <div className="flex items-center space-x-2.5 group cursor-pointer">
+              <div className="relative p-1.5 bg-gradient-to-br from-primary to-secondary rounded-lg">
+                <Home className="h-6 w-6 sm:h-7 sm:w-7 text-white transition-transform duration-200 group-hover:scale-110" />
               </div>
-              <span className="text-lg sm:text-xl font-bold text-foreground">VarsityDigs</span>
+              <span className="text-xl sm:text-2xl font-display font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary">VarsityDigs</span>
             </div>
           </div>
 
@@ -137,7 +137,7 @@ const Header = () => {
             <Button 
               size="sm"
               onClick={() => setAuthModal({ isOpen: true, type: 'signup' })}
-              className="text-sm font-medium bg-primary hover:bg-primary-dark transition-all duration-200 hover:shadow-md"
+              className="text-sm font-semibold bg-gradient-to-r from-primary to-secondary hover:opacity-90 transition-all duration-200 shadow-[var(--shadow-sm)] hover:shadow-[var(--shadow-md)]"
             >
               <Building className="h-4 w-4 mr-1.5" />
               <span className="hidden lg:inline">List Property</span>

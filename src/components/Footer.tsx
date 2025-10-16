@@ -2,45 +2,56 @@ import { Home, Mail, Phone, MapPin, Facebook, Twitter, Instagram } from 'lucide-
 
 const Footer = () => {
   return (
-    <footer className="bg-primary-dark text-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <footer className="bg-gradient-to-br from-primary-dark via-primary to-primary-dark text-white relative overflow-hidden">
+      {/* Subtle pattern overlay */}
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_50%,rgba(255,255,255,0.05),transparent_50%)]"></div>
+      
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Brand */}
           <div className="col-span-1 md:col-span-2">
             <div className="flex items-center mb-4">
-              <Home className="h-8 w-8 text-secondary mr-2" />
-              <span className="text-2xl font-bold">VarsityDigs</span>
+              <div className="p-2 bg-white/10 backdrop-blur-sm rounded-lg mr-3">
+                <Home className="h-7 w-7 text-white" />
+              </div>
+              <span className="text-2xl font-display font-bold">VarsityDigs</span>
             </div>
-            <p className="text-white/80 mb-4 max-w-md">
+            <p className="text-white/90 mb-6 max-w-md leading-relaxed">
               Connecting Zimbabwean students with verified, affordable accommodation 
               near their universities. No agents, no hidden fees, just honest housing.
             </p>
             <div className="flex space-x-4">
-              <Facebook className="h-5 w-5 text-white/60 hover:text-white cursor-pointer transition-colors" />
-              <Twitter className="h-5 w-5 text-white/60 hover:text-white cursor-pointer transition-colors" />
-              <Instagram className="h-5 w-5 text-white/60 hover:text-white cursor-pointer transition-colors" />
+              <div className="p-2 bg-white/10 hover:bg-white/20 rounded-lg cursor-pointer transition-all duration-200 hover:scale-110">
+                <Facebook className="h-5 w-5 text-white" />
+              </div>
+              <div className="p-2 bg-white/10 hover:bg-white/20 rounded-lg cursor-pointer transition-all duration-200 hover:scale-110">
+                <Twitter className="h-5 w-5 text-white" />
+              </div>
+              <div className="p-2 bg-white/10 hover:bg-white/20 rounded-lg cursor-pointer transition-all duration-200 hover:scale-110">
+                <Instagram className="h-5 w-5 text-white" />
+              </div>
             </div>
           </div>
 
           {/* Quick Links */}
           <div>
-            <h3 className="font-semibold mb-4">For Students</h3>
-            <ul className="space-y-2 text-white/80">
-              <li><a href="#" className="hover:text-white transition-colors">Find Accommodation</a></li>
-              <li><a href="#" className="hover:text-white transition-colors">How It Works</a></li>
-              <li><a href="#" className="hover:text-white transition-colors">Safety Tips</a></li>
-              <li><a href="#" className="hover:text-white transition-colors">Student Guide</a></li>
+            <h3 className="font-display font-semibold mb-4 text-white">For Students</h3>
+            <ul className="space-y-3 text-white/90">
+              <li><a href="#" className="hover:text-white hover:translate-x-1 inline-block transition-all duration-200">Find Accommodation</a></li>
+              <li><a href="#" className="hover:text-white hover:translate-x-1 inline-block transition-all duration-200">How It Works</a></li>
+              <li><a href="#" className="hover:text-white hover:translate-x-1 inline-block transition-all duration-200">Safety Tips</a></li>
+              <li><a href="#" className="hover:text-white hover:translate-x-1 inline-block transition-all duration-200">Student Guide</a></li>
             </ul>
           </div>
 
           {/* For Owners */}
           <div>
-            <h3 className="font-semibold mb-4">For Property Owners</h3>
-            <ul className="space-y-2 text-white/80">
-              <li><a href="#" className="hover:text-white transition-colors">List Your Property</a></li>
-              <li><a href="#" className="hover:text-white transition-colors">Pricing</a></li>
-              <li><a href="#" className="hover:text-white transition-colors">Owner Resources</a></li>
-              <li><a href="#" className="hover:text-white transition-colors">Success Stories</a></li>
+            <h3 className="font-display font-semibold mb-4 text-white">For Property Owners</h3>
+            <ul className="space-y-3 text-white/90">
+              <li><a href="#" className="hover:text-white hover:translate-x-1 inline-block transition-all duration-200">List Your Property</a></li>
+              <li><a href="#" className="hover:text-white hover:translate-x-1 inline-block transition-all duration-200">Pricing</a></li>
+              <li><a href="#" className="hover:text-white hover:translate-x-1 inline-block transition-all duration-200">Owner Resources</a></li>
+              <li><a href="#" className="hover:text-white hover:translate-x-1 inline-block transition-all duration-200">Success Stories</a></li>
             </ul>
           </div>
         </div>
