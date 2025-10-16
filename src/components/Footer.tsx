@@ -1,5 +1,12 @@
 import { Home, Mail, Phone, MapPin, Facebook, Twitter, Instagram } from 'lucide-react';
 
+const smoothScrollTo = (id: string) => {
+  const element = document.querySelector(id);
+  if (element) {
+    element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+};
+
 const Footer = () => {
   return (
     <footer className="bg-gradient-to-br from-primary-dark via-primary to-primary-dark text-white relative overflow-hidden">
@@ -37,10 +44,10 @@ const Footer = () => {
           <div>
             <h3 className="font-display font-semibold mb-4 text-white">For Students</h3>
             <ul className="space-y-3 text-white/90">
-              <li><a href="#" className="hover:text-white hover:translate-x-1 inline-block transition-all duration-200">Find Accommodation</a></li>
-              <li><a href="#" className="hover:text-white hover:translate-x-1 inline-block transition-all duration-200">How It Works</a></li>
-              <li><a href="#" className="hover:text-white hover:translate-x-1 inline-block transition-all duration-200">Safety Tips</a></li>
-              <li><a href="#" className="hover:text-white hover:translate-x-1 inline-block transition-all duration-200">Student Guide</a></li>
+              <li><a href="#property-results" onClick={(e) => { e.preventDefault(); smoothScrollTo('#property-results'); }} className="hover:text-white hover:translate-x-1 inline-block transition-all duration-200">Find Accommodation</a></li>
+              <li><a href="#how-it-works" onClick={(e) => { e.preventDefault(); smoothScrollTo('#how-it-works'); }} className="hover:text-white hover:translate-x-1 inline-block transition-all duration-200">How It Works</a></li>
+              <li><a href="#faq" onClick={(e) => { e.preventDefault(); smoothScrollTo('#faq'); }} className="hover:text-white hover:translate-x-1 inline-block transition-all duration-200">Safety Tips</a></li>
+              <li><a href="#features" onClick={(e) => { e.preventDefault(); smoothScrollTo('#features'); }} className="hover:text-white hover:translate-x-1 inline-block transition-all duration-200">Student Guide</a></li>
             </ul>
           </div>
 
@@ -48,10 +55,10 @@ const Footer = () => {
           <div>
             <h3 className="font-display font-semibold mb-4 text-white">For Property Owners</h3>
             <ul className="space-y-3 text-white/90">
-              <li><a href="#" className="hover:text-white hover:translate-x-1 inline-block transition-all duration-200">List Your Property</a></li>
-              <li><a href="#" className="hover:text-white hover:translate-x-1 inline-block transition-all duration-200">Pricing</a></li>
-              <li><a href="#" className="hover:text-white hover:translate-x-1 inline-block transition-all duration-200">Owner Resources</a></li>
-              <li><a href="#" className="hover:text-white hover:translate-x-1 inline-block transition-all duration-200">Success Stories</a></li>
+              <li><a href="#pricing" onClick={(e) => { e.preventDefault(); smoothScrollTo('#pricing'); }} className="hover:text-white hover:translate-x-1 inline-block transition-all duration-200">List Your Property</a></li>
+              <li><a href="#pricing" onClick={(e) => { e.preventDefault(); smoothScrollTo('#pricing'); }} className="hover:text-white hover:translate-x-1 inline-block transition-all duration-200">Pricing</a></li>
+              <li><a href="#how-it-works" onClick={(e) => { e.preventDefault(); smoothScrollTo('#how-it-works'); }} className="hover:text-white hover:translate-x-1 inline-block transition-all duration-200">Owner Resources</a></li>
+              <li><a href="#testimonials" onClick={(e) => { e.preventDefault(); smoothScrollTo('#testimonials'); }} className="hover:text-white hover:translate-x-1 inline-block transition-all duration-200">Success Stories</a></li>
             </ul>
           </div>
         </div>
@@ -85,9 +92,9 @@ const Footer = () => {
           </div>
           
           <div className="flex space-x-6 text-sm text-white/80">
-            <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>
-            <a href="#" className="hover:text-white transition-colors">Terms of Service</a>
-            <a href="#" className="hover:text-white transition-colors">Support</a>
+            <a href="#faq" onClick={(e) => { e.preventDefault(); smoothScrollTo('#faq'); }} className="hover:text-white transition-colors">Privacy Policy</a>
+            <a href="#faq" onClick={(e) => { e.preventDefault(); smoothScrollTo('#faq'); }} className="hover:text-white transition-colors">Terms of Service</a>
+            <a href="#contact" onClick={(e) => { e.preventDefault(); smoothScrollTo('#contact'); }} className="hover:text-white transition-colors">Support</a>
           </div>
         </div>
 

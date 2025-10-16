@@ -6,6 +6,13 @@ import { Menu, X, Home, User, Heart, Search, MapPin, Building, Phone } from 'luc
 import { useIsMobile } from '@/hooks/use-mobile';
 import AuthModal from './AuthModal';
 
+const smoothScrollTo = (id: string) => {
+  const element = document.querySelector(id);
+  if (element) {
+    element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+};
+
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -26,33 +33,33 @@ const Header = () => {
   const navigationItems = [
     {
       title: 'Find Accommodation',
-      href: '#properties',
+      href: '#property-results',
       description: 'Browse available student housing',
       items: [
-        { title: 'Near UZ', href: '#', icon: MapPin },
-        { title: 'Near NUST', href: '#', icon: MapPin },
-        { title: 'Near MSU', href: '#', icon: MapPin },
-        { title: 'All Universities', href: '#', icon: Building }
+        { title: 'Near UZ', href: '#property-results', icon: MapPin },
+        { title: 'Near NUST', href: '#property-results', icon: MapPin },
+        { title: 'Near MSU', href: '#property-results', icon: MapPin },
+        { title: 'All Universities', href: '#property-results', icon: Building }
       ]
     },
     {
       title: 'List Your Property',
-      href: '#list-property',
+      href: '#pricing',
       description: 'Become a host and earn money',
       items: [
-        { title: 'Start Listing', href: '#', icon: Building },
-        { title: 'Owner Resources', href: '#', icon: User },
-        { title: 'Pricing Guide', href: '#', icon: Search }
+        { title: 'Start Listing', href: '#pricing', icon: Building },
+        { title: 'Owner Resources', href: '#how-it-works', icon: User },
+        { title: 'Pricing Guide', href: '#pricing', icon: Search }
       ]
     },
     {
       title: 'Support',
-      href: '#support',
+      href: '#faq',
       description: 'Get help when you need it',
       items: [
         { title: 'Help Center', href: '#faq', icon: Search },
         { title: 'Contact Us', href: '#contact', icon: Phone },
-        { title: 'Report Issue', href: '#', icon: Heart }
+        { title: 'Report Issue', href: '#contact', icon: Heart }
       ]
     }
   ];
@@ -87,10 +94,14 @@ const Header = () => {
                           <p className="text-xs text-muted-foreground mt-1">{item.description}</p>
                         </div>
                         <div className="grid gap-2">
-                          {item.items.map((subItem) => (
+                           {item.items.map((subItem) => (
                             <NavigationMenuLink key={subItem.title} asChild>
                               <a 
                                 href={subItem.href}
+                                onClick={(e) => {
+                                  e.preventDefault();
+                                  smoothScrollTo(subItem.href);
+                                }}
                                 className="flex items-center space-x-2 rounded-md p-2 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors"
                               >
                                 <subItem.icon className="h-4 w-4" />
@@ -109,13 +120,25 @@ const Header = () => {
 
           {/* Medium Screen Simple Navigation */}
           <nav className="hidden md:flex lg:hidden items-center space-x-4">
-            <a href="#properties" className="text-sm font-medium text-foreground hover:text-primary transition-colors">
+            <a 
+              href="#property-results" 
+              onClick={(e) => { e.preventDefault(); smoothScrollTo('#property-results'); }}
+              className="text-sm font-medium text-foreground hover:text-primary transition-colors"
+            >
               Find Housing
             </a>
-            <a href="#list-property" className="text-sm font-medium text-foreground hover:text-primary transition-colors">
+            <a 
+              href="#pricing" 
+              onClick={(e) => { e.preventDefault(); smoothScrollTo('#pricing'); }}
+              className="text-sm font-medium text-foreground hover:text-primary transition-colors"
+            >
               List Property
             </a>
-            <a href="#contact" className="text-sm font-medium text-foreground hover:text-primary transition-colors">
+            <a 
+              href="#contact" 
+              onClick={(e) => { e.preventDefault(); smoothScrollTo('#contact'); }}
+              className="text-sm font-medium text-foreground hover:text-primary transition-colors"
+            >
               Support
             </a>
           </nav>
@@ -202,7 +225,11 @@ const Header = () => {
                             key={subItem.title}
                             href={subItem.href}
                             className="flex items-center space-x-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
-                            onClick={() => setIsMenuOpen(false)}
+                            onClick={(e) => {
+                              e.preventDefault();
+                              setIsMenuOpen(false);
+                              smoothScrollTo(subItem.href);
+                            }}
                           >
                             <subItem.icon className="h-4 w-4" />
                             <span>{subItem.title}</span>
