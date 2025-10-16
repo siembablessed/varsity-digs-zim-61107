@@ -7,7 +7,7 @@ import { Separator } from '@/components/ui/separator';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Checkbox } from '@/components/ui/checkbox';
-import { Eye, EyeOff, User, Home } from 'lucide-react';
+import { Eye, EyeOff, User, Home, ArrowRight, ArrowLeft } from 'lucide-react';
 
 interface AuthModalProps {
   isOpen: boolean;
@@ -18,6 +18,7 @@ interface AuthModalProps {
 const AuthModal = ({ isOpen, onClose, defaultTab = 'login' }: AuthModalProps) => {
   const [showPassword, setShowPassword] = useState(false);
   const [userType, setUserType] = useState<'student' | 'owner'>('student');
+  const [signupStep, setSignupStep] = useState(1);
 
   const universities = [
     'University of Zimbabwe',
@@ -103,130 +104,158 @@ const AuthModal = ({ isOpen, onClose, defaultTab = 'login' }: AuthModalProps) =>
           </TabsContent>
 
           <TabsContent value="signup" className="space-y-4">
-            <div className="space-y-4">
-              {/* User Type Selection */}
-              <div>
-                <Label className="text-sm font-medium">I am a:</Label>
-                <div className="grid grid-cols-2 gap-2 mt-2">
-                  <Button
-                    type="button"
-                    variant={userType === 'student' ? 'default' : 'outline'}
-                    className="flex items-center gap-2"
-                    onClick={() => setUserType('student')}
-                  >
-                    <User className="h-4 w-4" />
-                    Student
-                  </Button>
-                  <Button
-                    type="button"
-                    variant={userType === 'owner' ? 'default' : 'outline'}
-                    className="flex items-center gap-2"
-                    onClick={() => setUserType('owner')}
-                  >
-                    <Home className="h-4 w-4" />
-                    Property Owner
-                  </Button>
-                </div>
-              </div>
-
-              <div className="grid grid-cols-2 gap-2">
+            {signupStep === 1 ? (
+              <div className="space-y-4">
+                {/* User Type Selection */}
                 <div>
-                  <Label htmlFor="firstName">First Name</Label>
-                  <Input id="firstName" placeholder="John" className="mt-1" />
+                  <Label className="text-sm font-medium">I am a:</Label>
+                  <div className="grid grid-cols-2 gap-2 mt-2">
+                    <Button
+                      type="button"
+                      variant={userType === 'student' ? 'default' : 'outline'}
+                      className="flex items-center gap-2"
+                      onClick={() => setUserType('student')}
+                    >
+                      <User className="h-4 w-4" />
+                      Student
+                    </Button>
+                    <Button
+                      type="button"
+                      variant={userType === 'owner' ? 'default' : 'outline'}
+                      className="flex items-center gap-2"
+                      onClick={() => setUserType('owner')}
+                    >
+                      <Home className="h-4 w-4" />
+                      Property Owner
+                    </Button>
+                  </div>
                 </div>
+
                 <div>
-                  <Label htmlFor="lastName">Last Name</Label>
-                  <Input id="lastName" placeholder="Doe" className="mt-1" />
-                </div>
-              </div>
-
-              <div>
-                <Label htmlFor="signup-email">Email</Label>
-                <Input 
-                  id="signup-email" 
-                  type="email" 
-                  placeholder="your@email.com"
-                  className="mt-1"
-                />
-              </div>
-
-              <div>
-                <Label htmlFor="phone">Phone Number</Label>
-                <Input 
-                  id="phone" 
-                  type="tel" 
-                  placeholder="+263 77 123 4567"
-                  className="mt-1"
-                />
-              </div>
-
-              {userType === 'student' && (
-                <div>
-                  <Label htmlFor="university">University</Label>
-                  <Select>
-                    <SelectTrigger className="mt-1">
-                      <SelectValue placeholder="Select your university" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {universities.map((uni) => (
-                        <SelectItem key={uni} value={uni.toLowerCase().replace(/\s+/g, '-')}>
-                          {uni}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </div>
-              )}
-
-              <div>
-                <Label htmlFor="signup-password">Password</Label>
-                <div className="relative mt-1">
+                  <Label htmlFor="signup-email">Email</Label>
                   <Input 
-                    id="signup-password" 
-                    type={showPassword ? 'text' : 'password'}
-                    placeholder="Create a strong password"
+                    id="signup-email" 
+                    type="email" 
+                    placeholder="your@email.com"
+                    className="mt-1"
                   />
-                  <Button
-                    type="button"
-                    variant="ghost"
-                    size="icon"
-                    className="absolute right-0 top-0 h-full px-3"
-                    onClick={() => setShowPassword(!showPassword)}
-                  >
-                    {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
-                  </Button>
                 </div>
-              </div>
 
-              <div className="flex items-center space-x-2">
-                <Checkbox id="terms" />
-                <Label htmlFor="terms" className="text-sm">
-                  I agree to the{' '}
-                  <Button variant="link" className="p-0 h-auto text-sm">
-                    Terms of Service
-                  </Button>
-                  {' '}and{' '}
-                  <Button variant="link" className="p-0 h-auto text-sm">
-                    Privacy Policy
-                  </Button>
-                </Label>
-              </div>
+                <div>
+                  <Label htmlFor="signup-password">Password</Label>
+                  <div className="relative mt-1">
+                    <Input 
+                      id="signup-password" 
+                      type={showPassword ? 'text' : 'password'}
+                      placeholder="Create a strong password"
+                    />
+                    <Button
+                      type="button"
+                      variant="ghost"
+                      size="icon"
+                      className="absolute right-0 top-0 h-full px-3"
+                      onClick={() => setShowPassword(!showPassword)}
+                    >
+                      {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                    </Button>
+                  </div>
+                </div>
 
-              <Button className="w-full">
-                Create Account
-                {userType === 'owner' && (
-                  <span className="ml-2 text-xs">(Pending Approval)</span>
+                <Button className="w-full" onClick={() => setSignupStep(2)}>
+                  Continue
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </Button>
+
+                <div className="relative">
+                  <div className="absolute inset-0 flex items-center">
+                    <Separator />
+                  </div>
+                  <div className="relative flex justify-center text-xs uppercase">
+                    <span className="bg-background px-2 text-muted-foreground">Or</span>
+                  </div>
+                </div>
+
+                <Button variant="outline" className="w-full">
+                  Continue with Google
+                </Button>
+              </div>
+            ) : (
+              <div className="space-y-4">
+                <div className="grid grid-cols-2 gap-2">
+                  <div>
+                    <Label htmlFor="firstName">First Name</Label>
+                    <Input id="firstName" placeholder="John" className="mt-1" />
+                  </div>
+                  <div>
+                    <Label htmlFor="lastName">Last Name</Label>
+                    <Input id="lastName" placeholder="Doe" className="mt-1" />
+                  </div>
+                </div>
+
+                <div>
+                  <Label htmlFor="phone">Phone Number</Label>
+                  <Input 
+                    id="phone" 
+                    type="tel" 
+                    placeholder="+263 77 123 4567"
+                    className="mt-1"
+                  />
+                </div>
+
+                {userType === 'student' && (
+                  <div>
+                    <Label htmlFor="university">University</Label>
+                    <Select>
+                      <SelectTrigger className="mt-1">
+                        <SelectValue placeholder="Select your university" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {universities.map((uni) => (
+                          <SelectItem key={uni} value={uni.toLowerCase().replace(/\s+/g, '-')}>
+                            {uni}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
                 )}
-              </Button>
 
-              {userType === 'owner' && (
-                <div className="bg-muted/50 p-3 rounded-lg">
-                  <p className="text-xs text-muted-foreground">
-                    Property owner accounts require verification. You'll receive an email once your account is approved (usually within 24 hours).
-                  </p>
+                <div className="flex items-center space-x-2">
+                  <Checkbox id="terms" />
+                  <Label htmlFor="terms" className="text-sm">
+                    I agree to the{' '}
+                    <Button variant="link" className="p-0 h-auto text-sm">
+                      Terms
+                    </Button>
+                    {' '}and{' '}
+                    <Button variant="link" className="p-0 h-auto text-sm">
+                      Privacy Policy
+                    </Button>
+                  </Label>
                 </div>
-              )}
-            </div>
+
+                <div className="flex gap-2">
+                  <Button variant="outline" className="w-1/3" onClick={() => setSignupStep(1)}>
+                    <ArrowLeft className="mr-2 h-4 w-4" />
+                    Back
+                  </Button>
+                  <Button className="flex-1">
+                    Create Account
+                    {userType === 'owner' && (
+                      <span className="ml-2 text-xs opacity-80">*</span>
+                    )}
+                  </Button>
+                </div>
+
+                {userType === 'owner' && (
+                  <div className="bg-muted/50 p-3 rounded-lg">
+                    <p className="text-xs text-muted-foreground">
+                      * Property owner accounts require verification (usually within 24 hours).
+                    </p>
+                  </div>
+                )}
+              </div>
+            )}
           </TabsContent>
         </Tabs>
       </DialogContent>
