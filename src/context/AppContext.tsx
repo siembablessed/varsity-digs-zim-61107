@@ -1,4 +1,19 @@
 import { createContext, useContext, useState, ReactNode } from 'react';
+import property1Main from '@/assets/property-1-main.jpg';
+import property1Bath from '@/assets/property-1-bath.jpg';
+import property2Main from '@/assets/property-2-main.jpg';
+import property2Living from '@/assets/property-2-living.jpg';
+import property3Main from '@/assets/property-3-main.jpg';
+import property3Bedroom from '@/assets/property-3-bedroom.jpg';
+import property4Main from '@/assets/property-4-main.jpg';
+import property4Study from '@/assets/property-4-study.jpg';
+import property5Main from '@/assets/property-5-main.jpg';
+import property5Kitchen from '@/assets/property-5-kitchen.jpg';
+import property6Main from '@/assets/property-6-main.jpg';
+import property6Study from '@/assets/property-6-study.jpg';
+import sampleRoom1 from '@/assets/sample-room-1.jpg';
+import sampleRoom2 from '@/assets/sample-room-2.jpg';
+import sampleRoom3 from '@/assets/sample-room-3.jpg';
 
 interface Property {
   id: string;
@@ -74,9 +89,9 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
       rating: 4.8,
       reviewCount: 24,
       images: [
-        '/src/assets/property-1-main.jpg', 
-        '/src/assets/property-1-bath.jpg',
-        '/src/assets/sample-room-1.jpg'
+        property1Main, 
+        property1Bath,
+        sampleRoom1
       ],
       amenities: ['WiFi', 'Kitchen', 'Security', 'Parking'],
       roomType: 'Single Room',
@@ -93,9 +108,9 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
       rating: 4.6,
       reviewCount: 18,
       images: [
-        '/src/assets/property-2-main.jpg',
-        '/src/assets/property-2-living.jpg',
-        '/src/assets/sample-room-2.jpg'
+        property2Main,
+        property2Living,
+        sampleRoom2
       ],
       amenities: ['WiFi', 'Kitchen', 'Laundry', 'Garden'],
       roomType: 'Shared House',
@@ -112,9 +127,9 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
       rating: 4.9,
       reviewCount: 31,
       images: [
-        '/src/assets/property-3-main.jpg',
-        '/src/assets/property-3-bedroom.jpg',
-        '/src/assets/sample-room-3.jpg'
+        property3Main,
+        property3Bedroom,
+        sampleRoom3
       ],
       amenities: ['WiFi', 'Private Bathroom', 'Security', 'Parking'],
       roomType: 'Studio',
@@ -131,9 +146,9 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
       rating: 4.3,
       reviewCount: 12,
       images: [
-        '/src/assets/property-4-main.jpg',
-        '/src/assets/property-4-study.jpg',
-        '/src/assets/sample-room-1.jpg'
+        property4Main,
+        property4Study,
+        sampleRoom1
       ],
       amenities: ['WiFi', 'Kitchen', 'Bus Route'],
       roomType: 'Shared Room',
@@ -150,9 +165,9 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
       rating: 4.9,
       reviewCount: 41,
       images: [
-        '/src/assets/property-5-main.jpg',
-        '/src/assets/property-5-kitchen.jpg',
-        '/src/assets/sample-room-2.jpg'
+        property5Main,
+        property5Kitchen,
+        sampleRoom2
       ],
       amenities: ['WiFi', 'Gym', 'Pool', 'Security', 'Parking'],
       roomType: 'Studio',
@@ -169,9 +184,9 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
       rating: 4.5,
       reviewCount: 16,
       images: [
-        '/src/assets/property-6-main.jpg',
-        '/src/assets/property-6-study.jpg',
-        '/src/assets/sample-room-3.jpg'
+        property6Main,
+        property6Study,
+        sampleRoom3
       ],
       amenities: ['WiFi', 'Kitchen', 'Study Area'],
       roomType: 'Single Room',
