@@ -41,7 +41,7 @@ const FiltersPanel = ({ isOpen, onClose }: FiltersPanelProps) => {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 lg:relative lg:inset-auto">
+    <div className="fixed inset-0 z-[70] lg:relative lg:inset-auto">
       {/* Mobile Backdrop */}
       <div className="absolute inset-0 bg-black/50 lg:hidden" onClick={onClose} />
       
@@ -170,7 +170,7 @@ const SearchAndFilters = () => {
   const [isFiltersOpen, setIsFiltersOpen] = useState(false);
 
   return (
-    <div className="bg-background/95 backdrop-blur-md border-b border-border sticky top-14 sm:top-16 z-40">
+    <div className="bg-background/95 backdrop-blur-md border-b border-border sticky top-14 sm:top-16 z-[60]">
       <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-6 py-3 sm:py-4">
         <div className="flex gap-2 sm:gap-4">
           {/* Search */}
