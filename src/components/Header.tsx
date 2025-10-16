@@ -66,10 +66,7 @@ const Header = () => {
         <div className="flex justify-between items-center h-16 sm:h-18">
           {/* Logo */}
           <div className="flex items-center flex-shrink-0">
-            <div className="flex items-center space-x-2.5 group cursor-pointer">
-              <div className="relative p-1.5 bg-gradient-to-br from-primary to-secondary rounded-lg">
-                <Home className="h-6 w-6 sm:h-7 sm:w-7 text-white transition-transform duration-200 group-hover:scale-110" />
-              </div>
+            <div className="flex items-center group cursor-pointer">
               <span className="text-xl sm:text-2xl font-display font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary">VarsityDigs</span>
             </div>
           </div>
