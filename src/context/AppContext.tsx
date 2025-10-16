@@ -73,7 +73,11 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
       price: 250,
       rating: 4.8,
       reviewCount: 24,
-      images: ['/src/assets/sample-room-1.jpg', '/src/assets/sample-room-2.jpg'],
+      images: [
+        '/src/assets/property-1-main.jpg', 
+        '/src/assets/property-1-bath.jpg',
+        '/src/assets/sample-room-1.jpg'
+      ],
       amenities: ['WiFi', 'Kitchen', 'Security', 'Parking'],
       roomType: 'Single Room',
       availableSpots: 2,
@@ -88,7 +92,11 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
       price: 180,
       rating: 4.6,
       reviewCount: 18,
-      images: ['/src/assets/sample-room-2.jpg'],
+      images: [
+        '/src/assets/property-2-main.jpg',
+        '/src/assets/property-2-living.jpg',
+        '/src/assets/sample-room-2.jpg'
+      ],
       amenities: ['WiFi', 'Kitchen', 'Laundry', 'Garden'],
       roomType: 'Shared House',
       availableSpots: 1,
@@ -103,7 +111,11 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
       price: 300,
       rating: 4.9,
       reviewCount: 31,
-      images: ['/src/assets/sample-room-3.jpg'],
+      images: [
+        '/src/assets/property-3-main.jpg',
+        '/src/assets/property-3-bedroom.jpg',
+        '/src/assets/sample-room-3.jpg'
+      ],
       amenities: ['WiFi', 'Private Bathroom', 'Security', 'Parking'],
       roomType: 'Studio',
       availableSpots: 1,
@@ -118,7 +130,11 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
       price: 120,
       rating: 4.3,
       reviewCount: 12,
-      images: ['/src/assets/sample-room-1.jpg'],
+      images: [
+        '/src/assets/property-4-main.jpg',
+        '/src/assets/property-4-study.jpg',
+        '/src/assets/sample-room-1.jpg'
+      ],
       amenities: ['WiFi', 'Kitchen', 'Bus Route'],
       roomType: 'Shared Room',
       availableSpots: 3,
@@ -133,7 +149,11 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
       price: 450,
       rating: 4.9,
       reviewCount: 41,
-      images: ['/src/assets/sample-room-2.jpg'],
+      images: [
+        '/src/assets/property-5-main.jpg',
+        '/src/assets/property-5-kitchen.jpg',
+        '/src/assets/sample-room-2.jpg'
+      ],
       amenities: ['WiFi', 'Gym', 'Pool', 'Security', 'Parking'],
       roomType: 'Studio',
       availableSpots: 1,
@@ -148,7 +168,11 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
       price: 200,
       rating: 4.5,
       reviewCount: 16,
-      images: ['/src/assets/sample-room-3.jpg'],
+      images: [
+        '/src/assets/property-6-main.jpg',
+        '/src/assets/property-6-study.jpg',
+        '/src/assets/sample-room-3.jpg'
+      ],
       amenities: ['WiFi', 'Kitchen', 'Study Area'],
       roomType: 'Single Room',
       availableSpots: 2,
